@@ -1,0 +1,10 @@
+class based component prior 16.8
+functional  conponent after 16.8
+
+2.
+passing argument to function:
+onclick = {() => this.funName("Argumnet")}       // not Recommended 
+            or
+onclick = {funtionName.bind(this,"Argument")}   //Recommended
+
+3.
