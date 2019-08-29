@@ -16,7 +16,7 @@ const [ personState, setPersonState ] = useState({
 
  const switchNameHandler = () => {
     setPersonState({
-      persons: [{name: "komalika", age : 21},
+      persons: [{name: "komal", age : 21},
       {name:"shweta", age: 26}]
   });
   };
