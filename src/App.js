@@ -3,6 +3,8 @@ import './App.css';
 import Person from './Person/Person';
 import UserOutput from './Assignment1/UserOutput';
 import UserInput from './Assignment1/UserInput';
+import Validation from './Assignment2/Validation';
+import CharComponents from './Assignment2/CharComponents';
 
 class App extends Component { //prior 16.8 only way to create class.
   //INTRODUCING state : Special properties for component only
@@ -15,7 +17,8 @@ class App extends Component { //prior 16.8 only way to create class.
       {name: "user1", id:1},
       {name: "user2", id:2},
       {name: "user3", id:3}
-    ]
+    ],
+    userInputText: ''
   }
   switchNameHandler = (newName) => {
     this.setState({
@@ -32,8 +35,28 @@ class App extends Component { //prior 16.8 only way to create class.
       ]
     })
   }
+  textLengthHandler = (event) =>
+  {
+    this.setState({
+      userInputText : event.target.value
+    })
+
+  }
+  deleteChar = (i) => {
+    const text = this.state.userInputText.split('');
+    text.splice(i,1);
+    const updatedText= text.join('');
+    this.setState({userInputText : updatedText});
+  }
   render() {
+    const charList = this.state.userInputText.split('').map((ch, i) => {
+      return <CharComponents
+      chars= {ch}
+      key={i} 
+      click={() => this.deleteChar(i)}/>;
+    });
     return (
+    
       <div className="App center-div">
         <div className="divBlock">
           <p>How Are You?</p>
@@ -48,6 +71,16 @@ class App extends Component { //prior 16.8 only way to create class.
           <UserOutput name ={this.state.users[0].name}></UserOutput>
           <UserOutput name ={this.state.users[1].name}></UserOutput>
           <UserOutput name ={this.state.users[2].name}></UserOutput>
+        </div>
+
+
+        {/*Create An input Field with a change Listner which outputs the length of the entered text below it*/}
+        <div  className="divBlock">
+          <input type="text" onChange= {this.textLengthHandler}/>
+          <p>{this.state.userInputText.length}</p>
+          <Validation len= {this.state.userInputText.length}/>
+          {charList}
+          
         </div>
       </div>
     );
